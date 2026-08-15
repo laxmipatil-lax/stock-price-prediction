@@ -1,0 +1,11 @@
+# Python
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Env files (never commit API keys/secrets)
+.env
+
+# OS
+.DS_Store
+Thumbs.db
