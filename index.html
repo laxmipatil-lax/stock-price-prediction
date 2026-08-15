@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stock Price Prediction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Signature element: scrolling ticker tape -->
+  <div class="tape-wrap">
+    <div class="tape" id="tape">
+      <span>AAPL 214.32 ▲0.8%</span>
+      <span>MSFT 431.10 ▲0.3%</span>
+      <span>TSLA 261.05 ▼1.2%</span>
+      <span>GOOGL 178.44 ▲0.5%</span>
+      <span>AMZN 198.77 ▼0.2%</span>
+      <span>INFY.NS 1789.60 ▲1.1%</span>
+      <span>NVDA 138.92 ▲2.4%</span>
+      <span>AAPL 214.32 ▲0.8%</span>
+      <span>MSFT 431.10 ▲0.3%</span>
+      <span>TSLA 261.05 ▼1.2%</span>
+      <span>GOOGL 178.44 ▲0.5%</span>
+      <span>AMZN 198.77 ▼0.2%</span>
+      <span>INFY.NS 1789.60 ▲1.1%</span>
+      <span>NVDA 138.92 ▲2.4%</span>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">＄</span>
+      <div>
+        <h1>Stock Price Prediction</h1>
+        <p class="eyebrow">Linear Regression · Historical Trend Forecasting</p>
+      </div>
+    </div>
+
+    <form id="predict-form" class="controls" autocomplete="off">
+      <div class="field">
+        <label for="ticker">Ticker symbol</label>
+        <input id="ticker" name="ticker" type="text" placeholder="e.g. AAPL, TSLA, INFY.NS" required />
+      </div>
+      <div class="field field-small">
+        <label for="period">History</label>
+        <select id="period" name="period">
+          <option value="6mo">6 months</option>
+          <option value="1y" selected>1 year</option>
+          <option value="2y">2 years</option>
+          <option value="5y">5 years</option>
+        </select>
+      </div>
+      <div class="field field-small">
+        <label for="days">Forecast days</label>
+        <input id="days" name="days" type="number" min="1" max="180" value="30" />
+      </div>
+      <button type="submit" id="predict-btn">Predict</button>
+    </form>
+  </header>
+
+  <main>
+    <section id="status" class="status"></section>
+
+    <section id="results" class="results hidden">
+      <div class="stat-row">
+        <div class="stat-card">
+          <span class="stat-label">Last close</span>
+          <span class="stat-value" id="last-close">—</span>
+        </div>
+        <div class="stat-card accent">
+          <span class="stat-label">Predicted next close</span>
+          <span class="stat-value" id="next-close">—</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Model R² score</span>
+          <span class="stat-value" id="r2-score">—</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Mean abs. error</span>
+          <span class="stat-value" id="mae">—</span>
+        </div>
+      </div>
+
+      <div class="chart-panel">
+        <div class="chart-header">
+          <h2 id="chart-title">Historical &amp; Predicted Price</h2>
+          <div class="legend">
+            <span><i class="dot dot-history"></i> Historical</span>
+            <span><i class="dot dot-prediction"></i> Predicted</span>
+          </div>
+        </div>
+        <canvas id="price-chart" height="110"></canvas>
+      </div>
+
+      <p class="disclaimer">
+        Educational project output only — a linear regression on past prices is not
+        investment advice. Markets are influenced by far more than a straight-line trend.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
